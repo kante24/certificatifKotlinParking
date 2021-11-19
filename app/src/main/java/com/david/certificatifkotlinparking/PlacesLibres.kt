@@ -48,15 +48,10 @@ class PlacesLibres : AppCompatActivity() {
         listView = findViewById(R.id.listViewParking);
         listView.adapter = myListAdapter
 
+        //Lors du click sur un item
         listView.setOnItemClickListener{
                 parent, view, position, id ->
-            //Place actuelle
-//            val tempPLace: placeParking = temArrayPlace[position]
-//            Toast.makeText(this, temArrayPlace[position].Numero, Toast.LENGTH_SHORT).show()
 
-//            if(temArrayPlace.contains(temArrayPlace[position]))
-//            {
-////                            Toast.makeText(this, "You have Clicked " + parent.getItemAtPosition(position), Toast.LENGTH_SHORT).show()
                 //Affichage de l'alert dialog modale
                 val dialogView = LayoutInflater.from(this).inflate(R.layout.ajout_dialog, null)
                 val dialogbuilder = AlertDialog.Builder(this).setView(dialogView).setTitle("Occupation de la place de parking")
@@ -72,16 +67,19 @@ class PlacesLibres : AppCompatActivity() {
                 val btnOccuper =dialogView.findViewById<Button>(R.id.btnOccuper)
                 btnOccuper.setOnClickListener {
                     val nom = alertDialog.findViewById<EditText>(R.id.Nom)
-                    val immatriculation = alertDialog.findViewById<EditText>(R.id.Nom).toString()
-                    if (nom != null) {
+                    val immatriculation = alertDialog.findViewById<EditText>(R.id.Nom)
+                    if (nom != null && immatriculation != null ) {
                         temArrayPlace[position].nomOccupant = nom.text.toString()
+                        temArrayPlace[position].immatriculation = immatriculation.text.toString()
                         temArrayPlace[position].Statut = true
                         myListAdapter.notifyDataSetChanged()
                         alertDialog.dismiss()
                     }
+                    else
+                    {
+                        Toast.makeText(this, "Veuillez remplir tous les champs ", Toast.LENGTH_SHORT).show()
+                    }
                 }
-
-//            }
         }
     }
 

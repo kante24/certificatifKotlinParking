@@ -3,15 +3,21 @@ package com.david.certificatifkotlinparking
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 class placesParkings : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_places_parkings)
 
+        //Créations places de parkings
         val place1 : placeParking = placeParking ("A-34" ,"Sous-Sol 3", true, "David Kante", "P5W 9C0" );
         val place3 : placeParking = placeParking ("A-35" ,"Sous-Sol 3", true, "David Kante", "P5W 9C0" );
         val place4 : placeParking = placeParking ("A-36" ,"Sous-Sol 3", true, "David Kante", "P5W 9C0" );
@@ -30,6 +36,54 @@ class placesParkings : AppCompatActivity() {
         val myListAdapter = placeParkingArrayAdapteur(this,arrayPlaces)
         val listView = findViewById<ListView>(R.id.listViewParking);
         listView.adapter = myListAdapter
+
+        //Lors du click sur un item
+        listView.setOnItemClickListener{
+                parent, view, position, id ->
+
+            //Ajout occupant si place libre
+            if(arrayPlaces[position].Statut == false) {
+                //Affichage de l'alert dialog modale
+                val dialogView = LayoutInflater.from(this).inflate(R.layout.ajout_dialog, null)
+                val dialogbuilder = AlertDialog.Builder(this).setView(dialogView)
+                    .setTitle("Occupation de la place de parking")
+                val alertDialog = dialogbuilder.show()
+
+                //Click bouton annuler
+                val btnAnnuler = dialogView.findViewById<Button>(R.id.btnAnnuler)
+                btnAnnuler.setOnClickListener {
+                    alertDialog.dismiss()
+                }
+
+                //Click bouton annuler
+                val btnOccuper = dialogView.findViewById<Button>(R.id.btnOccuper)
+                btnOccuper.setOnClickListener {
+                    val nom = alertDialog.findViewById<EditText>(R.id.Nom)
+                    val immatriculation = alertDialog.findViewById<EditText>(R.id.Nom)
+                    if (nom != null && immatriculation != null) {
+                        arrayPlaces[position].nomOccupant = nom.text.toString()
+                        arrayPlaces[position].immatriculation = immatriculation.text.toString()
+                        arrayPlaces[position].Statut = true
+                        myListAdapter.notifyDataSetChanged()
+                        alertDialog.dismiss()
+                    } else {
+                        Toast.makeText(
+                            this,
+                            "Veuillez remplir tous les champs ",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+            else
+            {
+                Toast.makeText(
+                    this,
+                    "PLace de Parking déjà occupée ",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -57,4 +111,5 @@ class placesParkings : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 }
