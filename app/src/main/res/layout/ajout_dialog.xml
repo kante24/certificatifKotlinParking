@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nom Occupant"
+            android:id="@+id/Nom"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Immatriculation Occupant"
+            android:id="@+id/Imm"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Occuper"
+                android:onClick="Occuper"
+                android:id="@+id/btnOccuper"/>
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btnAnnuler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Annuler"
+                android:onClick="Annuler"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.widget.LinearLayout>

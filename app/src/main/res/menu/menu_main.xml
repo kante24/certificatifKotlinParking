@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/accueil"
+        android:title="Accueil"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/places"
+        android:title="Toutes les PLaces"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/placesLibres"
+        android:title="Toutes les PLaces Libres"
+        app:showAsAction="never" />
+</menu>
